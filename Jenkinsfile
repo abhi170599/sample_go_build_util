@@ -24,17 +24,17 @@ pipeline{
             steps {
                 withEnv(["PATH+GO=${GOPATH}/bin"]){
                     echo 'Running vetting'
-                    sh 'go vet .'
+                    sh 'go vet ./utils/'
                     echo 'Running linting'
-                    sh 'golint .'
+                    sh 'golint ./utils/'
                     echo 'Running test'
-                    sh 'go test -v .'
+                    sh 'go test -v ./utils/'
                 }
             }
         }
         
     }
-    
+
     post{
         always{
             echo "========always========"
