@@ -27,15 +27,15 @@ pipeline{
                    echo \$GOPATH
                    
                    # install go dep and run dep ensure
-                   go install github.com/golang/dep/cmd/dep
-                   PATH=\$PATH:\$GOPATH/bin
-                   echo \$PATH
+                   #go get github.com/golang/dep/cmd/dep
+                   #PATH=\$PATH:\$GOPATH/bin
+                   #echo \$PATH
 
                    # delete existing folder in GO source path and copy the latest, run dep ensure
                    rm -rf \$GOPATH/src/\$PROJECT_NAME/
                    cp -R . \$GOPATH/src/\$PROJECT_NAME/
-                   cd \$GOPATH/src/\$PROJECT_NAME/
-                   dep ensure
+                   #cd \$GOPATH/src/\$PROJECT_NAME/
+                   #dep ensure
 
                    rm -rf \$GOPATH/src/\$PROJECT_NAME/report.json
                    rm -rf \$GOPATH/src/\$PROJECT_NAME/cover.out
