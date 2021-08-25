@@ -33,6 +33,7 @@ pipeline{
 
                    # delete existing folder in GO source path and copy the latest, run dep ensure
                    rm -rf \$GOPATH/src/\$PROJECT_NAME/
+                   mkdir \$GOPATH/src/\$PROJECT_NAME/
                    cp -R . \$GOPATH/src/\$PROJECT_NAME/
                    #cd \$GOPATH/src/\$PROJECT_NAME/
                    #dep ensure
