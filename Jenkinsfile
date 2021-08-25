@@ -32,16 +32,16 @@ pipeline{
                    #echo \$PATH
 
                    # delete existing folder in GO source path and copy the latest, run dep ensure
-                   rm -rf \$GOPATH/src/\$PROJECT_NAME/
-                   mkdir \$GOPATH/src/\$PROJECT_NAME/
-                   cp -R . \$GOPATH/src/\$PROJECT_NAME/
+                   #rm -rf \$GOPATH/src/\$PROJECT_NAME/
+                   #mkdir \$GOPATH/src/\$PROJECT_NAME/
+                   #cp -R . \$GOPATH/src/\$PROJECT_NAME/
                    #cd \$GOPATH/src/\$PROJECT_NAME/
                    #dep ensure
 
-                   rm -rf \$GOPATH/src/\$PROJECT_NAME/report.json
-                   rm -rf \$GOPATH/src/\$PROJECT_NAME/cover.out
-                   go test ./... -json > \$GOPATH/src/\$PROJECT_NAME/report.json
-                   go test ./... -v -coverprofile=\$GOPATH/src/\$PROJECT_NAME/cover.out                      
+                   #rm -rf \$GOPATH/src/\$PROJECT_NAME/report.json
+                   #rm -rf \$GOPATH/src/\$PROJECT_NAME/cover.out
+                   go test ./... -json > report.json
+                   go test ./... -v -coverprofile=cover.out                      
 
                    """
             }
