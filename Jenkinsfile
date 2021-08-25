@@ -27,11 +27,11 @@ pipeline{
         stage('Test') {
             steps {
                 withEnv(["PATH+GO=${GOPATH}/bin"]){
-                    echo 'Running vetting'
+                    echo 'Running all vetting'
                     sh 'go vet ./...'
-                    echo 'Running linting'
+                    echo 'Running all linting'
                     sh 'golint ./...'
-                    echo 'Running test'
+                    echo 'Running all test'
                     sh 'go test -v ./...'
                 }
             }
