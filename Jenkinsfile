@@ -27,7 +27,7 @@ pipeline{
                    echo \$GOPATH
                    
                    # install go dep and run dep ensure
-                   sh 'go get -u golang.org/x/lint/golint'
+                   go get -u golang.org/x/lint/golint
 
                    #go get github.com/golang/dep/cmd/dep
                    #PATH=\$PATH:\$GOPATH/bin
