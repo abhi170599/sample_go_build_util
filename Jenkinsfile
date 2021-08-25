@@ -1,7 +1,12 @@
 pipeline{
     agent any
     
+    tools {
+        "go1.17"
+    }
+
     environment {
+        PROJECT_NAME = "dummy_utils"
         GO117MODULE = 'on'
         CGO_ENABLED = 0 
         GOPATH = "${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_ID}"
@@ -9,25 +14,47 @@ pipeline{
     
     stages {
         
-        stage('Pre Test') {
+        stage ('Pre-Build') {
             steps {
-                echo 'Installing dependencies'
-                sh 'go version'
-                sh 'go get -u golang.org/x/lint/golint'
+                sh "echo Starting Build Process"
             }
         }
 
-                
-        stage('Test') {
+        stage ('Testing') {
             steps {
-                withEnv(["PATH+GO=${GOPATH}/bin"]){
-                    echo 'Running all vetting'
-                    sh 'go vet ./...'
-                    echo 'Running all linting'
-                    sh 'golint ./...'
-                    echo 'Running all test'
-                    sh 'go test -v ./...'
+                sh """
+                   # set GOPATH (already set)
+                   echo \$GOPATH
+                   
+                   # install go dep and run dep ensure
+                   go get github.com/golang/dep/cmd/dep
+                   PATH=\$PATH:\$GOPATH/bin
+                   echo \$PATH
+
+                   # delete existing folder in GO source path and copy the latest, run dep ensure
+                   rm -rf \$GOPATH/src/\$PROJECT_NAME/
+                   cp -R . \$GOPATH/src/\$PROJECT_NAME/
+                   cd \$GOPATH/src/\$PROJECT_NAME/
+                   dep ensure
+
+                   rm -rf \$GOPATH/src/\$PROJECT_NAME/report.json
+                   rm -rf \$GOPATH/src/\$PROJECT_NAME/cover.out
+                   go test ./... -json > \$GOPATH/src/\$PROJECT_NAME/report.json
+                   go test ./... -v -coverprofile=\$GOPATH/src/\$PROJECT_NAME/cover.out                      
+
+                   """
+            }
+        }  
+                
+        stage('Lint') {
+            steps {
+                   sh "golint ./..." 
                 }
+        }
+        
+        stage('Vet') {
+            steps {
+                sh "go vet ./..."
             }
         }
         
