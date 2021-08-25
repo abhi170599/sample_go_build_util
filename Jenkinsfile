@@ -10,23 +10,31 @@ pipeline{
         GOPATH = "${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_ID}"
     }   
     
-    stages{
-        stage("Check"){
-            steps{
-                sh "go version"
-                sh "echo \$GOPATH"
-                sh "$WORKSPACE"
+    stages {
+        
+        stage('Pre Test') {
+            steps {
+                echo 'Installing dependencies'
+                sh 'go version'
+                sh 'go get -u golang.org/x/lint/golint'
             }
         }
-
-        stage("Test"){
-            steps{
-                sh "go test ./utils/" 
-                sh "go test ./utils/"
+        
+        stage('Test') {
+            steps {
+                withEnv(["PATH+GO=${GOPATH}/bin"]){
+                    echo 'Running vetting'
+                    sh 'go vet .'
+                    echo 'Running linting'
+                    sh 'golint .'
+                    echo 'Running test'
+                    sh 'go test -v .'
+                }
             }
         }
-
+        
     }
+    
     post{
         always{
             echo "========always========"
