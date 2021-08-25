@@ -3,7 +3,8 @@ pipeline{
     stages{
         stage("A"){
             steps{
-                echo "========executing A========"
+                sh "go version"
+                sh "echo \$GOPATH"
             }
             post{
                 always{
