@@ -5,6 +5,7 @@ pipeline{
             steps{
                 sh "go version"
                 sh "echo \$GOPATH"
+                sh "$WORKSPACE"
             }
             post{
                 always{
