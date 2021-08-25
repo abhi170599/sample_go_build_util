@@ -27,7 +27,7 @@ pipeline{
                    echo \$GOPATH
                    
                    # install go dep and run dep ensure
-                   go get github.com/golang/dep/cmd/dep
+                   go install github.com/golang/dep/cmd/dep
                    PATH=\$PATH:\$GOPATH/bin
                    echo \$PATH
 
