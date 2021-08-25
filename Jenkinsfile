@@ -52,9 +52,9 @@ pipeline{
         stage('Lint') {
             steps {
                    sh """
-                   go install golang.org/x/lint/golint@latest
-                   golint ./...
-                   """ 
+                   go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.42.0
+                   golangci-lint run ./...
+                   """
                 }
         }
         
