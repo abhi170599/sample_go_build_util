@@ -17,10 +17,7 @@ pipeline{
             }
         }
 
-        stage('Build') {
-
-        }
-        
+                
         stage('Test') {
             steps {
                 withEnv(["PATH+GO=${GOPATH}/bin"]){
