@@ -19,16 +19,20 @@ pipeline{
                 sh 'go get -u golang.org/x/lint/golint'
             }
         }
+
+        stage('Build') {
+
+        }
         
         stage('Test') {
             steps {
                 withEnv(["PATH+GO=${GOPATH}/bin"]){
                     echo 'Running vetting'
-                    sh 'go vet ./utils/'
+                    sh 'go vet ./...'
                     echo 'Running linting'
-                    sh 'golint ./utils/'
+                    sh 'golint ./...'
                     echo 'Running test'
-                    sh 'go test -v ./utils/'
+                    sh 'go test -v ./...'
                 }
             }
         }
