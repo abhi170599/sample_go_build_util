@@ -49,14 +49,7 @@ pipeline{
             }
         }  
                 
-        stage('Lint') {
-            steps {
-                   sh """
-                   go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.42.0
-                   golangci-lint run ./...
-                   """
-                }
-        }
+        
         
         stage('Vet') {
             steps {
